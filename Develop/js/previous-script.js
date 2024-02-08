@@ -90,6 +90,7 @@ $(function () {
 
 
   saveBtns.on("click", function () {
+    console.log(events);
     for (i = 0; i < events.length; i++) {
       var events = {
         time: events[i].time, 
@@ -119,8 +120,7 @@ $(function () {
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
 
-  // var currentHour = today.format("H");
-  var currentHour = 9;
+  var currentHour = today.format("H");
   console.log(currentHour);
   if (currentHour > 9) {
     nineEvent.addClass("past");
@@ -154,41 +154,41 @@ $(function () {
     twelveEvent.addClass("future");
   }
 
-  if (currentHour > 1) {
+  if (currentHour > 13) {
     oneEvent.addClass("past");
-  } else if (currentHour == 1) {
+  } else if (currentHour == 13) {
     oneEvent.addClass("present");
   } else {
     oneEvent.addClass("future");
   }
 
-  if (currentHour > 2) {
+  if (currentHour > 14) {
     twoEvent.addClass("past");
-  } else if (currentHour == 2) {
+  } else if (currentHour == 14) {
     twoEvent.addClass("present");
   } else {
     twoEvent.addClass("future");
   }
 
-  if (currentHour > 3) {
+  if (currentHour > 15) {
     threeEvent.addClass("past");
-  } else if (currentHour == 3) {
+  } else if (currentHour == 15) {
     threeEvent.addClass("present");
   } else {
     threeEvent.addClass("future");
   }
 
-  if (currentHour > 4) {
+  if (currentHour > 16) {
     fourEvent.addClass("past");
-  } else if (currentHour == 4) {
+  } else if (currentHour == 16) {
     fourEvent.addClass("present");
   } else {
     fourEvent.addClass("future");
   }
 
-  if (currentHour > 5) {
+  if (currentHour > 17) {
     fiveEvent.addClass("past");
-  } else if (currentHour == 5) {
+  } else if (currentHour == 17) {
     fiveEvent.addClass("present");
   } else {
     fiveEvent.addClass("future");
@@ -203,7 +203,7 @@ $(function () {
     console.log(storedEvents);
     if (storedEvents !== null) {
       for (i = 0; i < storedEvents.length; i++) {
-        events[i].event.text = storedEvents.eventText;
+        events[i].event.val() = storedEvents.eventText;
       }
     }
   }
