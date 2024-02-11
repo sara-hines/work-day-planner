@@ -23,26 +23,18 @@
   </head>
 
   <body>
-    <header class="p-5 mb-4 border-5 border-bottom border-dark text-center">
+    <header class="border-5 border-bottom border-dark text-center">
       <h1 class="display-3">Work Day Scheduler</h1>
       <p class="lead">A simple calendar app for scheduling your work day</p>
       <p id="currentDay" class="lead"></p>
+      <p id="saved-confirmation">Appointment added to local storage ✅</p>
     </header>
-    <div class="container-lg px-5">
-      <!-- Use class for "past", "present", and "future" to apply styles to the
-        time-block divs accordingly. The javascript will need to do this by
-        adding/removing these classes on each div by comparing the hour in the
-        id to the current hour. The html provided below is meant to be an example
-        demonstrating how the css provided can be leveraged to create the
-        desired layout and colors. The html below should be removed or updated
-        in the finished product. Remember to delete this comment once the
-        code is implemented.
-        -->
-
-<!-- The "past" class adds a gray background color. The "present" class adds a red background color. The "future" class adds a green background color. -->
+    
+    <div class="container-lg px-10 mb-4">
+      <!-- Each time block in the calendar has a label for the hour (inside the div class nested within the time block), an input element (for the user to type the text of the event), and a save button to save the event (with an i element for the save icon nested inside). -->
       <div id="hour-9" class="row time-block">
         <div class="col-2 col-md-1 hour text-center py-3" id="nine-am">9AM</div>
-        <textarea class="col-8 col-md-10 description" id="nine-event" rows="3"> </textarea>
+        <input type="text" name="nine-event" class="col-8 col-md-10 description" id="nine-event" rows="3"> </input>
         <button class="btn saveBtn col-2 col-md-1" id="nine-btn" aria-label="save">
           <i class="fas fa-save" aria-hidden="true"></i>
         </button>
@@ -50,7 +42,7 @@
 
       <div id="hour-10" class="row time-block">
         <div class="col-2 col-md-1 hour text-center py-3" id="ten-am">10AM</div>
-        <textarea class="col-8 col-md-10 description" id="ten-event" rows="3"> </textarea>
+        <input type="text" name="ten-event" class="col-8 col-md-10 description" id="ten-event" rows="3"> </input>
         <button class="btn saveBtn col-2 col-md-1" id="ten-btn" aria-label="save">
           <i class="fas fa-save" aria-hidden="true"></i>
         </button>
@@ -58,7 +50,7 @@
 
       <div id="hour-11" class="row time-block">
         <div class="col-2 col-md-1 hour text-center py-3" id="eleven-am">11AM</div>
-        <textarea class="col-8 col-md-10 description" id="eleven-event" rows="3"> </textarea>
+        <input type="text" name="eleven-event" class="col-8 col-md-10 description" id="eleven-event" rows="3"> </input>
         <button class="btn saveBtn col-2 col-md-1" id="eleven-btn" aria-label="save">
           <i class="fas fa-save" aria-hidden="true"></i>
         </button>
@@ -66,7 +58,7 @@
 
       <div id="hour-12" class="row time-block">
         <div class="col-2 col-md-1 hour text-center py-3" id="twelve-pm">12PM</div>
-        <textarea class="col-8 col-md-10 description" id="twelve-event" rows="3"> </textarea>
+        <input type="text" name="twelve-event" class="col-8 col-md-10 description" id="twelve-event" rows="3"> </input>
         <button class="btn saveBtn col-2 col-md-1" id="twelve-btn" aria-label="save">
           <i class="fas fa-save" aria-hidden="true"></i>
         </button>
@@ -74,7 +66,7 @@
 
       <div id="hour-1" class="row time-block">
         <div class="col-2 col-md-1 hour text-center py-3" id="one-pm">1PM</div>
-        <textarea class="col-8 col-md-10 description" id="one-event" rows="3"> </textarea>
+        <input type="text" name="one-event" class="col-8 col-md-10 description" id="one-event" rows="3"> </input>
         <button class="btn saveBtn col-2 col-md-1" id="one-btn" aria-label="save">
           <i class="fas fa-save" aria-hidden="true"></i>
         </button>
@@ -82,7 +74,7 @@
 
       <div id="hour-2" class="row time-block">
         <div class="col-2 col-md-1 hour text-center py-3" id="two-pm">2PM</div>
-        <textarea class="col-8 col-md-10 description" id="two-event" rows="3"> </textarea>
+        <input type="text" name="two-event" class="col-8 col-md-10 description" id="two-event" rows="3"> </input>
         <button class="btn saveBtn col-2 col-md-1" id="two-btn" aria-label="save">
           <i class="fas fa-save" aria-hidden="true"></i>
         </button>
@@ -90,7 +82,7 @@
 
       <div id="hour-3" class="row time-block">
         <div class="col-2 col-md-1 hour text-center py-3" id="three-pm">3PM</div>
-        <textarea class="col-8 col-md-10 description" id="three-event"rows="3"> </textarea>
+        <input type="text" name="three-event" class="col-8 col-md-10 description" id="three-event"rows="3"> </input>
         <button class="btn saveBtn col-2 col-md-1" id="three-btn" aria-label="save">
           <i class="fas fa-save" aria-hidden="true"></i>
         </button>
@@ -98,7 +90,7 @@
 
       <div id="hour-4" class="row time-block">
         <div class="col-2 col-md-1 hour text-center py-3" id="four-pm">4PM</div>
-        <textarea class="col-8 col-md-10 description" id="four-event" rows="3"> </textarea>
+        <input type="text" name="four-event" class="col-8 col-md-10 description" id="four-event" rows="3"> </input>
         <button class="btn saveBtn col-2 col-md-1" id="four-btn" aria-label="save">
           <i class="fas fa-save" aria-hidden="true"></i>
         </button>
@@ -106,7 +98,7 @@
 
       <div id="hour-5" class="row time-block">
         <div class="col-2 col-md-1 hour text-center py-3" id="five-pm">5PM</div>
-        <textarea class="col-8 col-md-10 description" id="five-event" rows="3"> </textarea>
+        <input type="text" name="five-event" class="col-8 col-md-10 description" id="five-event" rows="3"> </input>
         <button class="btn saveBtn col-2 col-md-1" id="five-btn" aria-label="save">
           <i class="fas fa-save" aria-hidden="true"></i>
         </button>
