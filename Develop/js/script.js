@@ -10,7 +10,7 @@ var fourEvent = $("#four-event");
 var fiveEvent = $("#five-event");
 // The below saveBtns variable stores a selection of all of the save buttons using the class .saveBtn.
 var saveBtns = $(".saveBtn");
-// The variable savedConfirmation selects and stored the <p> element which will be used to display the message, "Appointment added to local storage ✅" when the user clicks the save button to save an event.
+// The variable savedConfirmation selects and stores the <p> element which will be used to display the message confirming an event has been saved.
 var savedConfirmation = $("#saved-confirmation");
 
 
@@ -135,7 +135,7 @@ function printEvents(storedEvents) {
 function handleSaveEvents(event) {
   event.preventDefault();
   var storedEvents = getEventsFromStorage();
-  // timeEl is the id on the input element where the user saves the event. 
+  // timeEl is the id on the input element where the user saves the event.
   const timeEl = "#" + event.currentTarget.id.split("-")[0] + "-event";
   // $(timeEl).val() is the text the user entered for the event.
   storedEvents[event.currentTarget.id] = $(timeEl).val()
