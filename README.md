@@ -42,3 +42,7 @@ Stack Overflow. (2014, January 28). jQuery .val() not working for input fields. 
 
 Stack Overflow. (2017, August 15). Prevent child elements from being the target when parent element is clicked. Stack Overflow; Stack Exchange Inc. https://stackoverflow.com/questions/45697607/prevent-child-elements-from-being-the-target-when-parent-element-is-clicked (I referenced T.J. Crowder's Aug 15, 2017 suggestion to use event.currentTarget instead of event.target to prevent child elements from being the target when parent element is clicked. I used this for the \<button> elements with the \<i> elements within which were sometimes becoming event.target.)
 
+## License
+
+This project is licensed under the [MIT license](https://opensource.org/license/mit/). The license can be accessed in the repository. 
+
