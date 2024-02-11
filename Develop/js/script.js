@@ -1,15 +1,4 @@
-var rootEl = $("#root");
-var nineAm = $("#nine-am");
-var tenAm = $("#ten-am");
-var elevenAm = $("#eleven-am");
-var twelvePm = $("#twelve-pm");
-var onePm = $("#one-pm");
-var twoPm = $("#two-pm");
-var threePm = $("#three-pm");
-var fourPm = $("#four-pm");
-var fivePm = $("#five-pm");
-
-var allEvents = $("textarea");
+// The below variables store selections of the input elements where event text is entered by the user.
 var nineEvent = $("#nine-event");
 var tenEvent = $("#ten-event");
 var elevenEvent = $("#eleven-event");
@@ -19,85 +8,97 @@ var twoEvent = $("#two-event");
 var threeEvent = $("#three-event");
 var fourEvent = $("#four-event");
 var fiveEvent = $("#five-event");
-
-// I'm not sure if I'll need the below one.
-var timeBlocks = $(".time-block");
-console.log(timeBlocks);
+// The below saveBtns variable stores a selection of all of the save buttons using the class .saveBtn.
 var saveBtns = $(".saveBtn");
-
-// I may delete the below, it may end up being duplicate. These are for the save buttons.
-var nineBtn = $("#nine-btn");
-var tenBtn = $("#ten-btn");
-var elevenBtn = $("#eleven-btn");
-var twelveBtn = $("#twelve-btn");
-var oneBtn = $("#one-btn");
-var twoBtn = $("#two-btn");
-var threeBtn = $("#three-btn");
-var fourBtn = $("#four-btn");
-var fiveBtn = $("#five-btn");
+// The variable savedConfirmation selects and stored the <p> element which will be used to display the message, "Appointment added to local storage ✅" when the user clicks the save button to save an event.
+var savedConfirmation = $("#saved-confirmation");
 
 
-var events = [
-  {
-    time: nineAm.text, 
-    eventText: nineEvent.val(),
-    event: nineEvent, 
-    btn: $("#nine-btn") 
-  },
-  {
-    time: tenAm.text, 
-    eventText: tenEvent.val(),
-    event: tenEvent,
-    btn: $("#ten-btn")
-  },
-  {
-    time: elevenAm.text, 
-    eventText: elevenEvent.val(),
-    event: elevenEvent,
-    btn: $("#eleven-btn")
-  },
-  {
-    time: twelvePm.text, 
-    eventText: twelveEvent.val(),
-    event: twelveEvent,
-    btn: $("#twelve-btn")
-  },
-  {
-    time: onePm.text, 
-    eventText: oneEvent.val(), 
-    event: oneEvent, 
-    btn: $("#one-btn")
-  },
-  {
-    time: twoPm.text, 
-    eventText: twoEvent.val(), 
-    event: twoEvent, 
-    btn: $("#two-btn")
-  },
-  {
-    time: threePm.text, 
-    eventText: threeEvent.val(),
-    event: threeEvent, 
-    btn: $("#three-btn")
-  },
-  {
-    time: fourPm.text, 
-    eventText: fourEvent.val(),
-    event: fourEvent,
-    btn: $("#four-btn")
-  },
-  {
-    time: fivePm.text, 
-    eventText: fiveEvent.val(),
-    event: fiveEvent, 
-    btn: $("#five-btn")
-  },
-]
+// The current day is accessed via day.js and reformatted to display the day of the week, full month, and day of the month in the appropriate <p> element. 
+var today = dayjs();
+$(function () {
+  $("#currentDay").text(today.format("dddd, MMMM D"));
+});
+// The current hour is accessed by reformatting day.js's "today" into the hour in military time. 
+var currentHour = today.format("H");
 
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
 
+// The "past" class adds a gray background color, the "present" class adds a red background color, and the "future" class adds a green background color. For each time block, the current hour in real time is compared to the hour of the respective time block. If the current hour is greater than the hour of the time block, the time block has passed and is color coded grey. If the current hour is equal to the hour of the time block, the time block is in the present and is color coded red. If the current hour is less than the hour of the time block, the time block is in the future and is color coded green.
+if (currentHour > 9) {
+  nineEvent.addClass("past");
+} else if (currentHour == 9) {
+  nineEvent.addClass("present");
+} else {
+  nineEvent.addClass("future");
+}
+
+if (currentHour > 10) {
+  tenEvent.addClass("past");
+} else if (currentHour == 10) {
+  tenEvent.addClass("present");
+} else {
+  tenEvent.addClass("future");
+}
+
+if (currentHour > 11) {
+  elevenEvent.addClass("past");
+} else if (currentHour == 11) {
+  elevenEvent.addClass("present");
+} else {
+  elevenEvent.addClass("future");
+}
+
+if (currentHour > 12) {
+  twelveEvent.addClass("past");
+} else if (currentHour == 12) {
+  twelveEvent.addClass("present");
+} else {
+  twelveEvent.addClass("future");
+}
+
+// For 1PM and the subsequent hours through 5PM, note that the military time equivalent is used to identify the time block. Using military time for each time block allows us to easily distinguish between the AM and PM of any given time and maintain accuracy of the color coding.
+if (currentHour > 13) {
+  oneEvent.addClass("past");
+} else if (currentHour == 13) {
+  oneEvent.addClass("present");
+} else {
+  oneEvent.addClass("future");
+}
+
+if (currentHour > 14) {
+  twoEvent.addClass("past");
+} else if (currentHour == 14) {
+  twoEvent.addClass("present");
+} else {
+  twoEvent.addClass("future");
+}
+
+if (currentHour > 15) {
+  threeEvent.addClass("past");
+} else if (currentHour == 15) {
+  threeEvent.addClass("present");
+} else {
+  threeEvent.addClass("future");
+}
+
+if (currentHour > 16) {
+  fourEvent.addClass("past");
+} else if (currentHour == 16) {
+  fourEvent.addClass("present");
+} else {
+  fourEvent.addClass("future");
+}
+
+if (currentHour > 17) {
+  fiveEvent.addClass("past");
+} else if (currentHour == 17) {
+  fiveEvent.addClass("present");
+} else {
+  fiveEvent.addClass("future");
+}
+
+
+// The below function retrieves and returns any events in localStorage (parsing, as the events would have previously been stringified in order to store them). If there are no events saved in localStorage, an empty object will be returned.
 function getEventsFromStorage() {
   var storedEvents = localStorage.getItem("storedEvents");
   if (storedEvents) {
@@ -108,69 +109,50 @@ function getEventsFromStorage() {
   return storedEvents;
 };
 
+
+// The saveEventsToStorage function stringifies storedEvents (since only the string data type can be saved to localStorage) and saves the result to localStorage under the name "storedEvents".
 function saveEventsToStorage(storedEvents) {
   localStorage.setItem("storedEvents", JSON.stringify(storedEvents));
 };
 
-function printEvents() {
-  $(allEvents).empty();
+
+// function printEvents takes in the storedEvents returned in the getEventsFromStorage function and sets the value of each input element to be the text that the user had entered. In the handleSaveEvents function, the text the user enters for a time block is saved to storedEvents using the id of the time block's button as the key. So, we can access the text entered by the user for a time block by using bracket notation and respective button element's id as the key.
+function printEvents(storedEvents) {
   var storedEvents = getEventsFromStorage();
-  console.log(storedEvents);
-  for (var i = 0; i < storedEvents.length; i++) {
-    var storedEvents = storedEvents[i];
-    // This is the part where we're actually trying to print the event to the page after it's been saved and retrieved from local storage. At this point, we hope that storedEvents[i] is one object out of the array of objects which was storedEvents, and we intend to set storedEvents to be storedEvents[i] so that we can handle each event that needs to be printed separately and use dot notation to grab and print it.
-    $(document.body.children[0].children[i].children[1].val(storedEvents.event));
-  }
+  $("#nine-event").val(storedEvents["nine-btn"]);
+  $("#ten-event").val(storedEvents["ten-btn"]);
+  $("#eleven-event").val(storedEvents["eleven-btn"]);
+  $("#twelve-event").val(storedEvents["twelve-btn"]);
+  $("#one-event").val(storedEvents["one-btn"]);
+  $("#two-event").val(storedEvents["two-btn"]);
+  $("#three-event").val(storedEvents["three-btn"]);
+  $("#four-event").val(storedEvents["four-btn"]);
+  $("#five-event").val(storedEvents["five-btn"]);
 }
 
+
+// Once the user clicks a save button, function handleSaveEvents takes in the click event and accesses the storedEvents from the getEventsFromStorage function. Function handleSaveEvents also constructs the id for the appropriate time block / input element (by using the id of the save button that triggered the event, the split() method, and string concatenation). In order to keep the event text associated with its time block when it enters localStorage, the id of the save button which triggered the event is used as the key, and the event text is saved as the value of that key. storedEvents is then passed to the saveEventsToStorage function.
 function handleSaveEvents(event) {
   event.preventDefault();
-  console.log(event.target);
-  console.log(event.target.id);
   var storedEvents = getEventsFromStorage();
-  const timeEl = "#" + event.target.id.split("-")[0] + "-event";
-  // console.log($(timeEl).val());
-  // console.log(timeEl);
-  // console.log($(document.body.children[0].children[i].children[1].val().trim()));
-  // for (var i = 0; i < 9; i++) {
-    // var newEvent = {
-      // hour: document.body.children[0].children[i].children[0].text(),
-      
-      storedEvents[event.target.id] = $(timeEl).val()
-      // saveBtn: document.body.children[0].children[i].children[2]
-    // }
-    // storedEvents.push(newEvent);
-    saveEventsToStorage(storedEvents);
-
-    // printEvents();
-  // }
+  // timeEl is the id on the input element where the user saves the event. 
+  const timeEl = "#" + event.currentTarget.id.split("-")[0] + "-event";
+  // $(timeEl).val() is the text the user entered for the event.
+  storedEvents[event.currentTarget.id] = $(timeEl).val()
+  saveEventsToStorage(storedEvents);
+  $("#saved-confirmation").animate({opacity: 1});
+  $("#saved-confirmation").animate({opacity: 0});
 };
 
-// I would like to make an event listener here to listen for a click on the appropriate save button and make sure to keep the save button associated with only the event for its time block, and cause only the event for that time block to be saved. But, I'm a little lost and not sure how to do that. 
+
+// When a save button is clicked, function handleSaveEvents is passed. 
 saveBtns.on("click", handleSaveEvents);
 
+
+// The printEvents function is called to print the events (which were retrieved from localStorage) to the page.
 printEvents();
 
 
-$(function () {
-  // TODO: Add a listener for click events on the save button. This code should
-  // use the id in the containing time-block as a key to save the user input in
-  // local storage. HINT: What does `this` reference in the click listener
-  // function? How can DOM traversal be used to get the "hour-x" id of the
-  // time-block containing the button that was clicked? How might the id be
-  // useful when saving the description in local storage?
-  //
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
-  //
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-  //
-  // TODO: Add code to display the current date in the header of the page.
-  var today = dayjs();
-  $("#currentDay").text(today.format("dddd, MMMM D"));
-});
+
+
+
